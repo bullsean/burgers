@@ -10,11 +10,25 @@ var orm = {
             cb(result);
         });
     },
-    insertOne: function() {
+    insertOne: function(tableInput, col, val, cb) {
+        var queryString = 'INSERT INTO ?? (??) VALUES (?)';
+        connection.query(queryString, [tableInput, col, val], function(err, result) {
+            if (err) {
+                throw err;
+            }
+
+            cb(result);
+        });
 
     },
-    updateOne: function() {
-
+    updateOne: function(table, colVal, condition, cb) {
+        var queryString = 'UPDATE ?? SET ?? WHERE ?';
+        connection.query(queryString, [table, colVal, condition], function(err, result) {
+            if (err) {
+                throw err;
+            }
+            cb(result);
+        });
     }
 };
 
