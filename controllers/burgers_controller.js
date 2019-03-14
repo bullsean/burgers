@@ -22,13 +22,13 @@ router.post("/api/burgers", function (req, res) {
 });
 
 router.put("/api/burgers/:id", function (req, res) {
-    var condition = "id = " + req.params.id;
-
+    var condition = "id=" + req.params.id;
+    var where = 'devoured=' + req.body.devoured
+    console.log(req.body.devoured)
     console.log("condition", condition);
 
-    burger.updateOne({
-        devoured: req.body.devoured
-    }, condition, function (result) {
+    burger.updateOne(where, condition, function (result) {
+        console.log(result)
         if (result.changedRows == 0) {
             // If no rows were changed, then the ID must not exist, so 404
             return res.status(404).end();
